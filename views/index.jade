@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  div#content
+    table(border="1")
+      tr
+        th.pict 写真
+        th.tweet つぶやき
+        - i = 0;  // モーダルウィンドウを区別するための本のID
+        each user in user_list
+          tr
+            td #{user}
+            td #{latest_tweet[i]}
+          - i++;
