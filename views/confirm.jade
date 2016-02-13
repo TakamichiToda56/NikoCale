@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1 Confirm Page
+  p Please check your information.
+  div#content
+    table
+      tr
+        th user name
+        th password
+      tr
+        td #{name}
+        td #{pass}
+    div
+      form(action="/", method="post")
+        input(type="submit" value="OK")
+      form(action="/", method="get")
+        input(type="submit" value="Cancel")

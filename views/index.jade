@@ -14,3 +14,19 @@ block content
             td #{user}
             td #{latest_tweet[i]}
           - i++;
+    hr
+    div
+      form(action="/", method="post")
+        input("text", name="name")
+        br
+        input("text", name="pass")
+        br
+        input(type="submit" value="Login")
+    hr
+    div
+      form(action="/confirm", method="post")
+        input("text", name="new_name")
+        br
+        input("text", name="new_pass")
+        br
+        input(type="submit" value="Sign-in")
