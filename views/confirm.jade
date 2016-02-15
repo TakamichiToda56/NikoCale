@@ -4,7 +4,7 @@ block content
   h1 Confirm Page
   p Please check your information.
   div#content
-    table
+    table(border="1")
       tr
         th user name
         th password
@@ -12,7 +12,9 @@ block content
         td #{name}
         td #{pass}
     div
-      form(action="/", method="post")
+      form(action="timeline", method="post")
+        input(type="hidden", value="#{name}", name="new_name")
+        input(type="hidden", value="#{pass}", name="new_pass")
         input(type="submit" value="OK")
       form(action="/", method="get")
         input(type="submit" value="Cancel")

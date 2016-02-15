@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  div#content
+    div #{docs[0]}
+    div #{docs.length}
+    table(border="1")
+      tr
+        th.pict 名前
+        th.feel にこにこ
+        th.tweet つぶやき
+        - i = 0;
+        each d in docs
+          tr
+            td #{d.name}
+            td #{d.tweet[(d.tweet.length-1)].feeling}
+            td #{d.tweet[(d.tweet.length-1)].word}
+          - i++;

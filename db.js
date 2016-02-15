@@ -17,10 +17,4 @@ var UserDataSchema = new mongoose.Schema({
   'tweet' : [{'feeling' : String, 'word' : String}]
 })
 
-var AuthenticationDataSchema  = new mongoose.Schema({
-  'name' : String,
-  'pass' : String
-})
-
 exports.UserData = db.model('UserInfomation', UserDataSchema);
-exports.AuthenticationData = db.model('AuthenticationInfomation', AuthenticationDataSchema);
