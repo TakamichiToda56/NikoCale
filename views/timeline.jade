@@ -18,6 +18,9 @@ block content
             td 
               div
                 img(src="images/#{d.tweet[(d.tweet.length-1)].feeling}.png")
-              div #{d.name}
+              div 
+                form(action="personal", method="post")
+                  input(type="submit", value="#{d.name}")
+                  input(type="hidden", value="#{d._id}", name="db_id")
             td #{d.tweet[(d.tweet.length-1)].word}
           - i++;

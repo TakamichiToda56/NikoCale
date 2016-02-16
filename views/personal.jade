@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1= name
+  p Welcome to #{name}
+  div#content
+
+    table(border="1")
+      tr
+        th.date 更新日時
+        th.face 気分
+        th.tweet つぶやき
+        - i = 0;
+        each t in tweet
+          tr
+            td #{t.date}
+            td
+              img(src="images/#{t.feeling}.png")
+            td #{t.word}
+          - i++;

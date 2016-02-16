@@ -23,7 +23,7 @@ router.post('/', function(req, res, next) {
     newUserData.save();
     res.render('timeline', { title : 'Incubation　Twitter',
                               docs : docs
-              });
+    });
   });
 });
 
