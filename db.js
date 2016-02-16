@@ -14,7 +14,7 @@ var db  = mongoose.createConnection(url, function(err, res){
 var UserDataSchema = new mongoose.Schema({
   'name' : String,
   'pass' : String,
-  'tweet' : [{'feeling' : String, 'word' : String}]
+  'tweet' : [{'date' : String, 'feeling' : String, 'word' : String}]
 })
 
 exports.UserData = db.model('UserInfomation', UserDataSchema);

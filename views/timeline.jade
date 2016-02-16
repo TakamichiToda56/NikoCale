@@ -8,13 +8,16 @@ block content
     div #{docs.length}
     table(border="1")
       tr
+        th.date 更新日時
         th.pict 名前
-        th.feel にこにこ
         th.tweet つぶやき
         - i = 0;
         each d in docs
           tr
-            td #{d.name}
-            td #{d.tweet[(d.tweet.length-1)].feeling}
+            td #{d.tweet[(d.tweet.length-1)].date}
+            td 
+              div
+                img(src="images/#{d.tweet[(d.tweet.length-1)].feeling}.png")
+              div #{d.name}
             td #{d.tweet[(d.tweet.length-1)].word}
           - i++;
