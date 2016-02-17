@@ -12,8 +12,9 @@ var db  = mongoose.createConnection(url, function(err, res){
 });
 
 var UserDataSchema = new mongoose.Schema({
-  'name' : String,
+  'id' : String,
   'pass' : String,
+  'name' : String,
   'tweet' : [{'date' : String, 'feeling' : String, 'word' : String}]
 })
 

@@ -2,18 +2,21 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Welcome to #{msg}
   div#content
-    table(border="1")
-      tr
-        th.pict 写真
-        th.tweet つぶやき
-        - i = 0;
-        each user in user_list
-          tr
-            td #{user}
-            td #{latest_tweet[i]}
-          - i++;
+    form(method='post',action='/')
+      table
+        tr
+          th ユーザーID
+          th パスワード
+        tr
+          td
+            input(type='text', name='user_id')
+          td
+            input(type='text', name='user_pass')
+        tr
+          td
+            input(type="submit" value="ログイン")
     hr
     div
       form(action="/", method="post")
