@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+var mongoose = require('mongoose');
+var UserData = require('../db.js').UserData;
+
 // dummy data
 var member = [{ 'id' : "hoge",
                 'pass' : "fuga",
@@ -13,17 +16,26 @@ var member = [{ 'id' : "hoge",
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  msg = '';
+  msg = 'ログインしていません';
   if(req.session != null){
     if(req.session.login == true){
       msg = req.session.name + 'でログインしています';
+      res.render('index', {
+        msg: msg,
+        docs : []
+      });
     }else{
-      msg = 'ログインしていません';
+      res.render('index', {
+        msg: msg,
+        docs : []
+      });
     }
+  }else{
+    res.render('index', {
+      msg: msg,
+      docs : []
+    });
   }
-  res.render('index', {
-    msg: msg
-  });
 });
 
 /* POST home page. */
@@ -36,13 +48,23 @@ router.post('/', function(req, res, next) {
     msg = user_id + 'でログインしました';
     req.session.login = true;
     req.session.name = user_id;
+    UserData.find(function(err,docs){
+      if(err){
+        console.log(err);
+      }
+      res.render('index', {
+        msg: msg,
+        docs : docs
+      });
+    });
+
   }else{
     req.session.login = false;
-    msg = 'ログインに失敗しました';
+    res.render('index', {
+      msg: 'ログインに失敗しました',
+      docs : []
+    });
   }
-  res.render('index', {
-    msg: msg
-  });
 });
 
 module.exports = router;
