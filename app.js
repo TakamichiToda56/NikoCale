@@ -12,6 +12,7 @@ var users = require('./routes/users');
 var confirm = require('./routes/confirm');
 var tweetCheck = require('./routes/tweetCheck');
 var addUser = require('./routes/addUser');
+var addTweet = require('./routes/addTweet');
 var timeline = require('./routes/timeline');
 var personal = require('./routes/personal');
 
@@ -43,6 +44,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/confirm', confirm);
 app.use('/addUser', addUser);
+app.use('/addTweet', addTweet);
 app.use('/tweetCheck', tweetCheck);
 app.use('/timeline', timeline);
 app.use('/personal', personal);

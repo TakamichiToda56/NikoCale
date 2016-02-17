@@ -22,7 +22,6 @@ router.post('/', function(req, res, next) {
       'name' : name,
       'tweet' : [{'date' : formatted, 'feeling' : "fine", 'word' : "Hello"}]
     });
-    console.log(newUserData);
     newUserData.save();
     res.redirect("/");
   });

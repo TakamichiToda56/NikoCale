@@ -52,30 +52,26 @@ block content
         input(type='hidden', name='id', value="#{id}")
         input(type='text', name="tweet")
         input(type="submit" value="つぶやく")
-    - }
-    
-      
-    hr
-    table(border="1")
-      tr
-        th.date 更新日時
-        th.pict 名前
-        th.tweet つぶやき
-        - i = 0;
-        each d in docs
-          tr
-            td #{d.tweet[(d.tweet.length-1)].date}
-            td 
-              div
-                img(src="images/#{d.tweet[(d.tweet.length-1)].feeling}.png")
-              div 
-                form(action="personal", method="post")
-                  input(type="submit", value="#{d.name}")
-                  input(type="hidden", value="#{d._id}", name="db_id")
-            td #{d.tweet[(d.tweet.length-1)].word}
-          - i++;
-    hr
-    - if(docs.length == 0){
+      hr
+      table(border="1")
+        tr
+          th.date 更新日時
+          th.pict 名前
+          th.tweet つぶやき
+          - i = 0;
+          each d in docs
+            tr
+              td #{d.tweet[(d.tweet.length-1)].date}
+              td 
+                div
+                  img(src="images/#{d.tweet[0].feeling}.png")
+                div 
+                  form(action="personal", method="post")
+                    input(type="submit", value="#{d.name}")
+                    input(type="hidden", value="#{d._id}", name="db_id")
+              td #{d.tweet[0].word}
+            - i++;
+    - }else{
       div 新規登録される方はこちら
       br
       div
