@@ -4,41 +4,35 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var UserData = require('../db.js').UserData;
 
-// dummy data
-var member = [{ 'id' : "hoge",
-                'pass' : "fuga",
-                'name' : "ほげ",
-                'tweet' : [{'date' : "formatted", 'feeling' : "fine", 'word' : "Hello"}]},
-              { 'id' : "aaa",
-                'pass' : "bbb",
-                'name' : "あああ",
-                'tweet' : [{'date' : "formatted", 'feeling' : "fine", 'word' : "Hello"}]}]
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   msg = 'ログインしていません';
   if(req.session != null || req.body.logout == "true"){
     if(req.session.login == true){
       msg = req.session.name + 'でログインしています';
+      var user_id = req.session.user_id;
       UserData.find(function(err,docs){
         if(err){
           console.log(err);
         }
         res.render('index', {
           msg: msg,
-          docs : docs
+          docs : docs,
+          user_id : user_id
         });
       });
     }else{
       res.render('index', {
         msg: msg,
-        docs : []
+        docs : [],
+        id : ""
       });
     }
   }else{
     res.render('index', {
       msg: msg,
-      docs : []
+      docs : [],
+      id : ""
     });
   }
 });
@@ -53,28 +47,32 @@ router.post('/', function(req, res, next) {
       console.log(err);
     }
     var correct_pass = serchPass(docs,user_id);
-    console.log(user_id);
-    console.log(docs);
-    console.log(correct_pass);
     if(correct_pass != null && correct_pass == user_pass){
-      msg = user_id + 'でログインしました';
+      var user_name = serchName(docs,user_id);
+      msg = user_name + 'でログインしました';
       req.session.login = true;
-      req.session.name = user_id;
+      req.session.name = user_name;
+      req.session.user_id = user_id;
       res.render('index', {
-        msg: msg,
-        docs : docs
+        msg : msg,
+        docs : docs,
+        id : user_id
       });
     }else if(req.body.logout == "true"){
       req.session.login = false;
+      req.session.id = "";
       res.render('index', {
-        msg: 'ログアウトしました',
-        docs : []
+        msg : 'ログアウトしました',
+        docs : [],
+        id : ""
       });
     }else{
       req.session.login = false;
+      req.session.id = "";
       res.render('index', {
         msg: 'ログインに失敗しました',
-        docs : []
+        docs : [],
+        id : ""
       });
     }
   });
@@ -91,4 +89,14 @@ serchPass = function(db_data,serchId){
     }
   }
   return(passwd);
+}
+
+serchName = function(db_data,serchId){
+  name = null;
+  for (var i = 0; i < db_data.length; i++) {
+    if(db_data[i].id == serchId){
+      name = db_data[i].name;
+    }
+  }
+  return(name);
 }

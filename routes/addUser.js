@@ -8,7 +8,6 @@ require('date-utils');
 
 router.post('/', function(req, res, next) {
   var id = req.body.new_id;
-  console.log(id)
   var pass = req.body.new_pass;
   var name = req.body.new_name;
   var dt = new Date();

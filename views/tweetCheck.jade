@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  h1 Confirm Page
+  p Please check your information.
+  div#content
+    div よろしいですか？(※今のところ一度つぶやいたら削除できません)
+    table(border="1")
+      tr
+        th 時刻
+        th 気分
+        th つぶやき内容
+      tr
+        td #{date}
+        td 
+          img(src="images/#{feeling}.png")
+        td #{tweet}
+    div
+      form(action="addUser", method="post")
+        input(type="hidden", value="#{date}", name="new_date")
+        input(type="hidden", value="#{feeling}", name="new_feeling")
+        input(type="hidden", value="#{tweet}", name="new_tweet")
+        input(type="hidden", value="#{id}", name="id")
+        input(type="submit" value="OK")
+      form(action="/", method="get")
+        input(type="submit" value="Cancel")
