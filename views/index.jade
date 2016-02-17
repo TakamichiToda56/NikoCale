@@ -1,22 +1,59 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{msg}
+  h1= msg
   div#content
-    form(method='post',action='/')
-      table
-        tr
-          th ユーザーID
-          th パスワード
-        tr
-          td
-            input(type='text', name='user_id')
-          td
-            input(type='text', name='user_pass')
-        tr
-          td
-            input(type="submit" value="ログイン")
+    - if(docs.length == 0){
+      form(method='post',action='/')
+        input(type='hidden', name='logout', value="false")
+        table
+          tr
+            th ユーザーID
+            th パスワード
+          tr
+            td
+              input(type='text', name='user_id')
+            td
+              input(type='text', name='user_pass')
+          tr
+            td
+              input(type="submit" value="ログイン")
+    - }else{
+        form(method='post',action='/')
+          input(type='hidden', name='logout', value="true")
+          input(type="submit" value="ログアウト")
+    - }
+    hr
+    - if(docs.length != 0){
+      form(method='post',action='tweet')
+        table
+          tr
+            td
+              img(src="images/happy.png")
+            td
+              img(src="images/good.png")
+            td
+              img(src="images/fine.png")
+            td
+              img(src="images/bad.png")
+            td
+              img(src="images/sad.png")
+          tr
+            td
+              input(type="radio" name="feeling" value="happy")
+            td
+              input(type="radio" name="feeling" value="good")
+            td
+              input(type="radio" name="feeling" value="fine" checked)
+            td
+              input(type="radio" name="feeling" value="bad")
+            td
+              input(type="radio" name="feeling" value="sad")
+        input(type='text')
+        input(type="submit" value="つぶやく")
+    - }
+    
+      
     hr
     table(border="1")
       tr
@@ -37,18 +74,23 @@ block content
             td #{d.tweet[(d.tweet.length-1)].word}
           - i++;
     hr
-    div
-      form(action="/", method="post")
-        input("text", name="name")
-        br
-        input("text", name="pass")
-        br
-        input(type="submit" value="Login")
-    hr
-    div
-      form(action="/confirm", method="post")
-        input("text", name="new_name")
-        br
-        input("text", name="new_pass")
-        br
-        input(type="submit" value="Sign-in")
+    - if(docs.length == 0){
+      div 新規登録される方はこちら
+      br
+      div
+        form(action="/confirm", method="post")
+          table
+            tr
+              td 新規ユーザーID
+              td
+                input("text", name="new_id")
+            tr
+              td 新規ユーザーパスワード
+              td
+                input("text", name="new_pass")
+            tr
+              td 表示名
+              td 
+                input("text", name="new_name")
+          input(type="submit" value="Sign-in")
+    - }

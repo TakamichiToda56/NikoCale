@@ -17,12 +17,17 @@ var member = [{ 'id' : "hoge",
 /* GET home page. */
 router.get('/', function(req, res, next) {
   msg = 'ログインしていません';
-  if(req.session != null){
+  if(req.session != null || req.body.logout == "true"){
     if(req.session.login == true){
       msg = req.session.name + 'でログインしています';
-      res.render('index', {
-        msg: msg,
-        docs : []
+      UserData.find(function(err,docs){
+        if(err){
+          console.log(err);
+        }
+        res.render('index', {
+          msg: msg,
+          docs : docs
+        });
       });
     }else{
       res.render('index', {
@@ -43,28 +48,36 @@ router.post('/', function(req, res, next) {
   var user_id = req.body.user_id;
   var user_pass = req.body.user_pass;
   var msg = '';
-  var correct_pass = serchPass(member,user_id);
-  if(correct_pass != null && correct_pass == user_pass){
-    msg = user_id + 'でログインしました';
-    req.session.login = true;
-    req.session.name = user_id;
-    UserData.find(function(err,docs){
-      if(err){
-        console.log(err);
-      }
+  UserData.find(function(err,docs){
+    if(err){
+      console.log(err);
+    }
+    var correct_pass = serchPass(docs,user_id);
+    console.log(user_id);
+    console.log(docs);
+    console.log(correct_pass);
+    if(correct_pass != null && correct_pass == user_pass){
+      msg = user_id + 'でログインしました';
+      req.session.login = true;
+      req.session.name = user_id;
       res.render('index', {
         msg: msg,
         docs : docs
       });
-    });
-
-  }else{
-    req.session.login = false;
-    res.render('index', {
-      msg: 'ログインに失敗しました',
-      docs : []
-    });
-  }
+    }else if(req.body.logout == "true"){
+      req.session.login = false;
+      res.render('index', {
+        msg: 'ログアウトしました',
+        docs : []
+      });
+    }else{
+      req.session.login = false;
+      res.render('index', {
+        msg: 'ログインに失敗しました',
+        docs : []
+      });
+    }
+  });
 });
 
 module.exports = router;
