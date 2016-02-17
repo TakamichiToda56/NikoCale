@@ -10,6 +10,7 @@ var session = require('express-session');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var confirm = require('./routes/confirm');
+var addUser = require('./routes/addUser');
 var timeline = require('./routes/timeline');
 var personal = require('./routes/personal');
 
@@ -40,6 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/confirm', confirm);
+app.use('/addUser', addUser);
 app.use('/timeline', timeline);
 app.use('/personal', personal);
 
