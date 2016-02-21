@@ -9,7 +9,6 @@ block content
         table
           tr
             th ユーザーID
-            th パスワード
           tr
             td
               input(type='text', name='user_id')
@@ -18,6 +17,7 @@ block content
               input(type="submit" value="ログイン")
     - }else{
         form(method='post',action='/')
+          input(type='hidden', name="")
           input(type='hidden', name='logout', value="true")
           input(type="submit" value="ログアウト")
     - }

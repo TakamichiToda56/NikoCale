@@ -46,7 +46,8 @@ router.post('/', function(req, res, next) {
       console.log(err);
     }
     var user_name = serchName(docs,user_id);
-    if(user_name != null){
+    console.log(user_name);
+    if(user_name != null && user_id != null){
       msg = user_name + 'でログインしました';
       req.session.login = true;
       req.session.name = user_name;
