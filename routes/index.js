@@ -15,6 +15,11 @@ router.get('/', function(req, res, next) {
         if(err){
           console.log(err);
         }
+        docs.sort(function(a,b){
+          if(Date.parse(a.tweet[0].date) > Date.parse(b.tweet[0].date)) return -1;
+          if(Date.parse(a.tweet[0].date) < Date.parse(b.tweet[0].date)) return 1;
+          return 0;
+        });
         res.render('index', {
           msg: msg,
           docs : docs,
@@ -46,15 +51,16 @@ router.post('/', function(req, res, next) {
       console.log(err);
     }
     var user_name = serchName(docs,user_id);
-    console.log(user_name);
     if(user_name != null && user_id != null){
       msg = user_name + 'でログインしました';
       req.session.login = true;
       req.session.name = user_name;
       req.session.user_id = user_id;
-      // for (var i = 0; i < docs.length; i++) {
-      //   docs[i]
-      // }
+      docs.sort(function(a,b){
+        if(Date.parse(a.tweet[0].date) > Date.parse(b.tweet[0].date)) return -1;
+        if(Date.parse(a.tweet[0].date) < Date.parse(b.tweet[0].date)) return 1;
+        return 0;
+      });
       res.render('index', {
         msg : msg,
         docs : docs,
