@@ -40,19 +40,20 @@ router.get('/', function(req, res, next) {
 /* POST home page. */
 router.post('/', function(req, res, next) {
   var user_id = req.body.user_id;
-  var user_pass = req.body.user_pass;
   var msg = '';
   UserData.find(function(err,docs){
     if(err){
       console.log(err);
     }
-    var correct_pass = serchPass(docs,user_id);
-    if(correct_pass != null && correct_pass == user_pass){
-      var user_name = serchName(docs,user_id);
+    var user_name = serchName(docs,user_id);
+    if(user_name != null){
       msg = user_name + 'でログインしました';
       req.session.login = true;
       req.session.name = user_name;
       req.session.user_id = user_id;
+      // for (var i = 0; i < docs.length; i++) {
+      //   docs[i]
+      // }
       res.render('index', {
         msg : msg,
         docs : docs,
@@ -81,16 +82,6 @@ router.post('/', function(req, res, next) {
 module.exports = router;
 
 // --- functions ---
-serchPass = function(db_data,serchId){
-  passwd = null;
-  for (var i = 0; i < db_data.length; i++) {
-    if(db_data[i].id == serchId){
-      passwd = db_data[i].pass;
-    }
-  }
-  return(passwd);
-}
-
 serchName = function(db_data,serchId){
   name = null;
   for (var i = 0; i < db_data.length; i++) {

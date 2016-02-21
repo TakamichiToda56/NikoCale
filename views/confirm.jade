@@ -8,16 +8,13 @@ block content
     table(border="1")
       tr
         th ユーザーID
-        th パスワード
         th 表示名
       tr
         td #{id}
-        td #{pass}
         td #{name}
     div
       form(action="addUser", method="post")
         input(type="hidden", value="#{id}", name="new_id")
-        input(type="hidden", value="#{pass}", name="new_pass")
         input(type="hidden", value="#{name}", name="new_name")
         input(type="submit" value="OK")
       form(action="/", method="get")

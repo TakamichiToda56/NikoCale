@@ -8,7 +8,6 @@ require('date-utils');
 
 router.post('/', function(req, res, next) {
   var id = req.body.new_id;
-  var pass = req.body.new_pass;
   var name = req.body.new_name;
   var dt = new Date();
   var formatted = dt.toFormat("YYYY-MM-DD HH24:MI:SS");
@@ -18,7 +17,7 @@ router.post('/', function(req, res, next) {
     }
     var newUserData = new UserData({
       'id' : id,
-      'pass' : pass,
+      'pass' : "",
       'name' : name,
       'tweet' : [{'date' : formatted, 'feeling' : "fine", 'word' : "Hello"}]
     });
