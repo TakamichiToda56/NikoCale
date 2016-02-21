@@ -1,7 +1,7 @@
 var mongoose = require ('mongoose');
 var  Schema = mongoose.Schema;
 
-var url = 'mongodb://localhost/nikocale';
+var url = 'mongodb://localhost:27006/nikocale';
 
 var db  = mongoose.createConnection(url, function(err, res){
     if(err){
