@@ -27,15 +27,15 @@ block content
         table
           tr
             td
-              img(src="images/happy.png")
+              img(src="images/happy.png", width="32", height="32")
             td
-              img(src="images/good.png")
+              img(src="images/good.png", width="32", height="32")
             td
-              img(src="images/fine.png")
+              img(src="images/fine.png", width="32", height="32")
             td
-              img(src="images/bad.png")
+              img(src="images/bad.png", width="32", height="32")
             td
-              img(src="images/sad.png")
+              img(src="images/sad.png", width="32", height="32")
           tr
             td
               input(type="radio" name="feeling" value="happy")
@@ -48,22 +48,22 @@ block content
             td
               input(type="radio" name="feeling" value="sad")
         input(type='hidden', name='id', value="#{id}")
-        input(type='text', name="tweet")
+        input(type='text', size=100, name="tweet")
         input(type="submit" value="つぶやく")
       hr
       table(border="1")
         tr
           th.date 更新日時
+          th.face 気分
           th.pict 名前
           th.tweet つぶやき
           - i = 0;
           each d in docs
             tr
-              td #{d.tweet[(d.tweet.length-1)].date}
+              td #{d.tweet[0].date}
               td 
-                div
-                  img(src="images/#{d.tweet[0].feeling}.png")
-                div 
+                  img(src="images/#{d.tweet[0].feeling}.png", width="32", height="32")
+              td
                   form(action="personal", method="post")
                     input(type="submit", value="#{d.name}")
                     input(type="hidden", value="#{d._id}", name="db_id")

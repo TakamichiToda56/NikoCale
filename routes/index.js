@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
         res.render('index', {
           msg: msg,
           docs : docs,
-          user_id : user_id
+          id : user_id
         });
       });
     }else{

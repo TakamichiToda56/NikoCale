@@ -5,6 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var cookie = require('cookie');
+
+var serialized_cookie = cookie.serialize('test', 'ほげ', {
+        maxAge : 10 //有効期間を100秒に設定
+      });
+
 var session = require('express-session');
 
 var routes = require('./routes/index');
@@ -34,7 +40,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 30 * 60 * 1000
+    maxAge: 24 * 60 * 60 * 1000
   }
 }));
 

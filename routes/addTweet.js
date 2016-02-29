@@ -9,6 +9,7 @@ router.post('/', function(req, res, next) {
   var feeling = req.body.new_feeling;
   var tweet = req.body.new_tweet;
   var user_id = req.body.id;
+console.log(user_id);
   var new_tweet = {'date' : date, 'feeling' : feeling, 'word' : tweet};
   UserData.findOne({
     'id' : user_id
