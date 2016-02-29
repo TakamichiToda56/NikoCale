@@ -16,10 +16,16 @@ block content
             td
               input(type="submit" value="ログイン")
     - }else{
-        form(method='post',action='/')
-          input(type='hidden', name="")
-          input(type='hidden', name='logout', value="true")
-          input(type="submit" value="ログアウト")
+        table
+          tr
+            td
+              form(method='post',action='/')
+                input(type='hidden', name="")
+                input(type='hidden', name='logout', value="true")
+                input(type="submit" value="ログアウト")
+            td
+              form(method='get',action='/')
+                input(type="submit" value="更新")
     - }
     hr
     - if(docs.length != 0){
