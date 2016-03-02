@@ -16,7 +16,7 @@ block content
           img(src="images/#{feeling}.png")
         td #{tweet}
     div
-      form(action="addTweet", method="post")
+      form(action="addTweet", method="post" onClick='return send("#{id}","#{tweet}","images/#{feeling}.png")')
         input(type="hidden", value="#{date}", name="new_date")
         input(type="hidden", value="#{feeling}", name="new_feeling")
         input(type="hidden", value="#{tweet}", name="new_tweet")

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        function send() {
+            var data = '{a:123,b:"hogehoge"}';
+            var jsonData = '{name:"aaaaa", sdasdaaaa:"' + document.getElementById('msg').value + '"}';
+            ws.send(jsonData);
+        }
+
+        var host = window.document.location.host.replace(/:.*/, '');
+        var ws = new WebSocket('ws://' + host + ':3000');
+        ws.onmessage = function (event) {
+            document.getElementById("messages").innerHTML += "<div>" + JSON.parse(event.data) + "</div>";
+            console.log(event);
+        };
+    </script>
+</head>
+<body>
+<strong>ws chat</strong><br>
+<input type="text" id="msg"/>
+<input type="button" value="send" onclick="send()"/>
+<br>
+<hr>
+<div id="messages"/>
+</body>
+</html>
