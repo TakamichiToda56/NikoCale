@@ -30,6 +30,5 @@ ws.onmessage = function (event) {
 
 function send(name,feeling,tweet) {
     var jsonData = '{name:"' + name + '",feeling:"' + feeling + '",tweet:"' + tweet + '"}';
-    console.log(jsonData);
     ws.send(jsonData);
 }

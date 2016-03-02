@@ -10,6 +10,7 @@ router.get('/', function(req, res, next) {
   if(req.session != null || req.body.logout == "true"){
     if(req.session.login == true){
       msg = req.session.name + 'でログインしています';
+      user_name = req.session.name;
       var user_id = req.session.user_id;
       UserData.find(function(err,docs){
         if(err){
@@ -20,24 +21,28 @@ router.get('/', function(req, res, next) {
           if(Date.parse(a.tweet[0].date) < Date.parse(b.tweet[0].date)) return 1;
           return 0;
         });
+        timeline = sortForTimeline(docs);
         res.render('index', {
           msg: msg,
-          docs : docs,
-          id : user_id
+          docs : timeline,
+          id : user_id,
+          show_name: user_name
         });
       });
     }else{
       res.render('index', {
         msg: msg,
         docs : [],
-        id : ""
+        id : "",
+        show_name : ""
       });
     }
   }else{
     res.render('index', {
       msg: msg,
       docs : [],
-      id : ""
+      id : "",
+      show_name : ""
     });
   }
 });
@@ -61,10 +66,12 @@ router.post('/', function(req, res, next) {
         if(Date.parse(a.tweet[0].date) < Date.parse(b.tweet[0].date)) return 1;
         return 0;
       });
+      timeline = sortForTimeline(docs);
       res.render('index', {
         msg : msg,
-        docs : docs,
-        id : user_id
+        docs : timeline,
+        id : user_id,
+        show_name: user_name
       });
     }else if(req.body.logout == "true"){
       req.session.login = false;
@@ -72,7 +79,8 @@ router.post('/', function(req, res, next) {
       res.render('index', {
         msg : 'ログアウトしました',
         docs : [],
-        id : ""
+        id : "",
+        show_name : ""
       });
     }else{
       req.session.login = false;
@@ -80,7 +88,8 @@ router.post('/', function(req, res, next) {
       res.render('index', {
         msg: 'ログインに失敗しました',
         docs : [],
-        id : ""
+        id : "",
+        show_name : ""
       });
     }
   });
@@ -97,4 +106,17 @@ serchName = function(db_data,serchId){
     }
   }
   return(name);
+}
+
+sortForTimeline = function(docs){
+  res = []
+  count = 0
+  for (var i = 0; i < docs.length; i++) {
+    person = docs[i]
+    for (var j = 0; j < person.tweet.length; j++) {
+      res[count] = {"tweet":person.tweet[j].word,"date":person.tweet[j].date,"feeling":person.tweet[j].feeling,"name":person.name,"_id":person._id}
+      count++;
+    }
+  }
+  return(res);
 }

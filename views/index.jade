@@ -58,8 +58,10 @@ block content
               input(type="radio" name="feeling" value="sad")
         input(type='hidden', name='id', value="#{id}")
         input(type='text', size=100, name="tweet")
+        input(type='hidden', name='show_name', value="#{show_name}")
         input(type="submit" value="つぶやく")
       hr
+      h2 タイムライン(最新20件)
       table(border="1")
         tr
           th.date 更新日時
@@ -68,15 +70,17 @@ block content
           th.tweet つぶやき
           - i = 0;
           each d in docs
+            - if(i < 20){
             tr
-              td #{d.tweet[0].date}
+              td #{d.date}
               td 
-                  img(src="images/#{d.tweet[0].feeling}.png", width="32", height="32")
+                img(src="images/#{d.feeling}.png", width="32", height="32")
               td
-                  form(action="personal", method="post")
-                    input(type="submit", value="#{d.name}")
-                    input(type="hidden", value="#{d._id}", name="db_id")
-              td #{d.tweet[0].word}
+                form(action="personal", method="post")
+                  input(type="submit", value="#{d.name}")
+                  input(type="hidden", value="#{d._id}", name="db_id")
+              td #{d.tweet}
+            - }
             - i++;
     - }else{
       div 新規登録される方はこちら

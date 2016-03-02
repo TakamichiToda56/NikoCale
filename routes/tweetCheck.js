@@ -9,10 +9,12 @@ router.post('/', function(req, res, next) {
   var feeling = req.body.feeling;
   var tweet = req.body.tweet;
   var user_id = req.body.id;
+  var show_name = req.body.show_name;
   res.render('tweetCheck', { date: date,
                           feeling: feeling,
                           tweet: tweet,
-                          id: user_id});
+                          id: user_id,
+                          show_name:show_name});
 });
 
 module.exports = router;
