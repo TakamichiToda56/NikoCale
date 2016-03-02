@@ -1,26 +1,23 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 全体の最新
   div#content
-    div #{docs[0]}
-    div #{docs.length}
     table(border="1")
       tr
         th.date 更新日時
+        th.face 気分
         th.pict 名前
         th.tweet つぶやき
         - i = 0;
         each d in docs
           tr
-            td #{d.tweet[(d.tweet.length-1)].date}
+            td #{d.tweet[0].date}
             td 
-              div
-                img(src="images/#{d.tweet[(d.tweet.length-1)].feeling}.png")
-              div 
+                img(src="images/#{d.tweet[0].feeling}.png", width="32", height="32")
+            td
                 form(action="personal", method="post")
                   input(type="submit", value="#{d.name}")
                   input(type="hidden", value="#{d._id}", name="db_id")
-            td #{d.tweet[(d.tweet.length-1)].word}
+            td #{d.tweet[0].word}
           - i++;

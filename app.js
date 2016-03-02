@@ -19,7 +19,7 @@ var confirm = require('./routes/confirm');
 var tweetCheck = require('./routes/tweetCheck');
 var addUser = require('./routes/addUser');
 var addTweet = require('./routes/addTweet');
-var timeline = require('./routes/timeline');
+var showAll = require('./routes/showAll');
 var personal = require('./routes/personal');
 
 var app = express();
@@ -52,7 +52,7 @@ app.use('/confirm', confirm);
 app.use('/addUser', addUser);
 app.use('/addTweet', addTweet);
 app.use('/tweetCheck', tweetCheck);
-app.use('/timeline', timeline);
+app.use('/showAll', showAll);
 app.use('/personal', personal);
 
 // catch 404 and forward to error handler

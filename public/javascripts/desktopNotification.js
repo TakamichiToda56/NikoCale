@@ -19,8 +19,6 @@ desktopNotification = function(name,tweet,iconPath){
   });
 }
 
-
-
 var host = window.document.location.host.replace(/:.*/, '');
 var ws = new WebSocket('ws://' + host + ':3000');
 

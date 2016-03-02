@@ -26,9 +26,11 @@ block content
             td
               form(method='get',action='/')
                 input(type="submit" value="更新")
+            td
+              form(method='get',action='showAll')
+                input(type="submit" value="全体の最新情報を見る")
     - }
     hr
-    input(type="button" onClick='send("hoge","こんにちわ","images/happy.png")')
     - if(docs.length != 0){
       form(method='post',action='tweetCheck')
         table
