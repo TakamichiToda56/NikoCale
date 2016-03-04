@@ -20,7 +20,7 @@ desktopNotification = function(name,tweet,iconPath){
 }
 
 var host = window.document.location.host.replace(/:.*/, '');
-var ws = new WebSocket('ws://' + host + ':3000');
+var ws = new WebSocket('ws://' + host + ':3007');
 
 ws.onmessage = function (event) {
     var jsonData = JSON.parse(event.data);
