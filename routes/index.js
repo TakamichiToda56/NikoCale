@@ -16,11 +16,6 @@ router.get('/', function(req, res, next) {
         if(err){
           console.log(err);
         }
-        docs.sort(function(a,b){
-          if(Date.parse(a.tweet[0].date) > Date.parse(b.tweet[0].date)) return -1;
-          if(Date.parse(a.tweet[0].date) < Date.parse(b.tweet[0].date)) return 1;
-          return 0;
-        });
         timeline = sortForTimeline(docs);
         res.render('index', {
           msg: msg,
@@ -61,11 +56,6 @@ router.post('/', function(req, res, next) {
       req.session.login = true;
       req.session.name = user_name;
       req.session.user_id = user_id;
-      docs.sort(function(a,b){
-        if(Date.parse(a.tweet[0].date) > Date.parse(b.tweet[0].date)) return -1;
-        if(Date.parse(a.tweet[0].date) < Date.parse(b.tweet[0].date)) return 1;
-        return 0;
-      });
       timeline = sortForTimeline(docs);
       res.render('index', {
         msg : msg,
@@ -118,5 +108,10 @@ sortForTimeline = function(docs){
       count++;
     }
   }
+  res.sort(function(a,b){
+    if(Date.parse(a.date) > Date.parse(b.date)) return -1;
+    if(Date.parse(a.date) < Date.parse(b.date)) return 1;
+    return 0;
+  });
   return(res);
 }
