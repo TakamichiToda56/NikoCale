@@ -15,7 +15,7 @@ var UserDataSchema = new mongoose.Schema({
   'id' : String,
   'pass' : String,
   'name' : String,
-  'tweet' : [{'date' : String, 'feeling' : String, 'word' : String}]
+  'tweet' : [{'date' : String, 'feeling' : String, 'word' : String, 'like' : [String]}]
 })
 
 exports.UserData = db.model('UserInfomation', UserDataSchema);

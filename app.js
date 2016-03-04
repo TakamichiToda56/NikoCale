@@ -21,6 +21,7 @@ var addUser = require('./routes/addUser');
 var addTweet = require('./routes/addTweet');
 var showAll = require('./routes/showAll');
 var personal = require('./routes/personal');
+var like = require('./routes/like');
 
 var app = express();
 
@@ -54,6 +55,7 @@ app.use('/addTweet', addTweet);
 app.use('/tweetCheck', tweetCheck);
 app.use('/showAll', showAll);
 app.use('/personal', personal);
+app.use('/like', like);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

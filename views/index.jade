@@ -68,6 +68,8 @@ block content
           th.face 気分
           th.pict 名前
           th.tweet つぶやき
+          th.like いいね
+          th
           - i = 0;
           each d in docs
             - if(i < 20){
@@ -80,6 +82,13 @@ block content
                   input(type="submit", value="#{d.name}")
                   input(type="hidden", value="#{d._id}", name="db_id")
               td #{d.tweet}
+              td 
+                form(action="like", method="post")
+                  input(type="submit", value="いいね")
+                  input(type='hidden', name='id', value="#{id}")
+                  input(type='hidden', name='likeId', value="#{d.tweetId}")
+                  input(type='hidden', name='tweetId', value="#{d._id}")
+              td #{d.like.length}
             - }
             - i++;
     - }else{

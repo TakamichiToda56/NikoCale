@@ -104,7 +104,7 @@ sortForTimeline = function(docs){
   for (var i = 0; i < docs.length; i++) {
     person = docs[i]
     for (var j = 0; j < person.tweet.length; j++) {
-      res[count] = {"tweet":person.tweet[j].word,"date":person.tweet[j].date,"feeling":person.tweet[j].feeling,"name":person.name,"_id":person._id}
+      res[count] = {"tweet":person.tweet[j].word,"date":person.tweet[j].date,"feeling":person.tweet[j].feeling,"name":person.name,"_id":person._id,'tweetId':person.tweet[j]._id, 'like':person.tweet[j].like}
       count++;
     }
   }
