@@ -70,7 +70,6 @@ block content
           th.pict 名前
           th.tweet つぶやき
           th.like いいね
-          th.likeNum (・∀・)!
           - i = 0;
           each d in docs
             - if(i < 20){
@@ -85,14 +84,17 @@ block content
               td #{d.tweet}
               td 
                 form(action="like", method="post")
-                  input(type="submit", value="いいね")
+                  table
+                    tr
+                      td
+                        input(type="image", width="32", height="32", src="images/like.png")
+                      td
+                        div(id="#{d.tweetId}") #{d.like.length}
+                        script.
+                          isLike("#{d.like}","#{id}","#{d.tweetId}")
                   input(type='hidden', name='id', value="#{id}")
                   input(type='hidden', name='likeId', value="#{d.tweetId}")
                   input(type='hidden', name='tweetId', value="#{d._id}")
-              td
-                div(id="#{d.tweetId}") #{d.like.length}
-                script.
-                  isLike("#{d.like}","#{id}","#{d.tweetId}")
             - }
             - i++;
     - }else{
