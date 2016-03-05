@@ -6,3 +6,11 @@ body {
 a {
   color: #00B7FF;
 }
+
+div.like_on {
+  color: red;
+}
+
+div.like_off {
+  color:black;
+}

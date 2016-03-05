@@ -2,6 +2,7 @@ extends layout
 
 block content
   h1= msg
+  script(src='/javascripts/isLike.js', charset='UTF-8')
   div#content
     - if(docs.length == 0){
       form(method='post',action='/')
@@ -69,7 +70,7 @@ block content
           th.pict 名前
           th.tweet つぶやき
           th.like いいね
-          th
+          th.likeNum (・∀・)!
           - i = 0;
           each d in docs
             - if(i < 20){
@@ -88,7 +89,10 @@ block content
                   input(type='hidden', name='id', value="#{id}")
                   input(type='hidden', name='likeId', value="#{d.tweetId}")
                   input(type='hidden', name='tweetId', value="#{d._id}")
-              td #{d.like.length}
+              td
+                div(id="#{d.tweetId}") #{d.like.length}
+                script.
+                  isLike("#{d.like}","#{id}","#{d.tweetId}")
             - }
             - i++;
     - }else{
