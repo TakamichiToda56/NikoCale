@@ -26,6 +26,7 @@ ws.onmessage = function (event) {
     var jsonData = JSON.parse(event.data);
     var obj = (new Function("return " + jsonData))();
     desktopNotification(obj.name,obj.feeling,obj.tweet);
+    window.location.reload();
 };
 
 function send(name,feeling,tweet) {
