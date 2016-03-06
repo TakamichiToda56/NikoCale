@@ -3,6 +3,8 @@ extends layout
 block content
   h1= msg
   script(src='/javascripts/isLike.js', charset='UTF-8')
+  script.
+    //- ws.onmessage = function (event) {window.location.reload()}
   div#content
     - if(docs.length == 0){
       form(method='post',action='/')
@@ -83,18 +85,19 @@ block content
                   input(type="hidden", value="#{d._id}", name="db_id")
               td #{d.tweet}
               td 
-                form(action="like", method="post")
+                
                   table
                     tr
                       td
-                        input(type="image", width="32", height="32", src="images/like.png")
+                        form(action="like", method="post")
+                          input(type="image", width="32", height="32", src="images/like.png")
+                          input(type='hidden', name='id', value="#{id}")
+                          input(type='hidden', name='likeId', value="#{d.tweetId}")
+                          input(type='hidden', name='tweetId', value="#{d._id}")
                       td
-                        div(id="#{d.tweetId}") #{d.like.length}
+                        a(id="#{d.tweetId}", onClick='whoLike("#{d.like}","#{id_name_table.id}","#{id_name_table.name}")', href="#") #{d.like.length}
                         script.
                           isLike("#{d.like}","#{id}","#{d.tweetId}")
-                  input(type='hidden', name='id', value="#{id}")
-                  input(type='hidden', name='likeId', value="#{d.tweetId}")
-                  input(type='hidden', name='tweetId', value="#{d._id}")
             - }
             - i++;
     - }else{

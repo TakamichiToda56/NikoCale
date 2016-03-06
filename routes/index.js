@@ -17,11 +17,13 @@ router.get('/', function(req, res, next) {
           console.log(err);
         }
         timeline = sortForTimeline(docs);
+        idNameTable = generateIdNameTable(docs);
         res.render('index', {
           msg: msg,
           docs : timeline,
           id : user_id,
-          show_name: user_name
+          show_name: user_name,
+          id_name_table : idNameTable
         });
       });
     }else{
@@ -29,7 +31,8 @@ router.get('/', function(req, res, next) {
         msg: msg,
         docs : [],
         id : "",
-        show_name : ""
+        show_name : "",
+        id_name_table : {}
       });
     }
   }else{
@@ -37,7 +40,8 @@ router.get('/', function(req, res, next) {
       msg: msg,
       docs : [],
       id : "",
-      show_name : ""
+      show_name : "",
+      id_name_table : {}
     });
   }
 });
@@ -57,11 +61,13 @@ router.post('/', function(req, res, next) {
       req.session.name = user_name;
       req.session.user_id = user_id;
       timeline = sortForTimeline(docs);
+      idNameTable = generateIdNameTable(docs);
       res.render('index', {
         msg : msg,
         docs : timeline,
         id : user_id,
-        show_name: user_name
+        show_name: user_name,
+        id_name_table : idNameTable
       });
     }else if(req.body.logout == "true"){
       req.session.login = false;
@@ -70,7 +76,8 @@ router.post('/', function(req, res, next) {
         msg : 'ログアウトしました',
         docs : [],
         id : "",
-        show_name : ""
+        show_name : "",
+        id_name_table : {}
       });
     }else{
       req.session.login = false;
@@ -79,7 +86,8 @@ router.post('/', function(req, res, next) {
         msg: 'ログインに失敗しました',
         docs : [],
         id : "",
-        show_name : ""
+        show_name : "",
+        id_name_table : {}
       });
     }
   });
@@ -104,7 +112,7 @@ sortForTimeline = function(docs){
   for (var i = 0; i < docs.length; i++) {
     person = docs[i]
     for (var j = 0; j < person.tweet.length; j++) {
-      res[count] = {"tweet":person.tweet[j].word,"date":person.tweet[j].date,"feeling":person.tweet[j].feeling,"name":person.name,"_id":person._id,'tweetId':person.tweet[j]._id, 'like':person.tweet[j].like}
+      res[count] = {"tweet":person.tweet[j].word,"date":person.tweet[j].date,"feeling":person.tweet[j].feeling,"name":person.name,"_id":person._id,'tweetId':person.tweet[j]._id, 'like':person.tweet[j].like};
       count++;
     }
   }
@@ -114,4 +122,15 @@ sortForTimeline = function(docs){
     return 0;
   });
   return(res);
+}
+
+generateIdNameTable = function(docs){
+  idList = [];
+  nameList = [];
+  for (var i = 0; i < docs.length; i++) {
+    idList.push(docs[i].id);
+    nameList.push(docs[i].name);
+  }
+  res = {"id":idList,"name":nameList}
+  return(res)
 }
